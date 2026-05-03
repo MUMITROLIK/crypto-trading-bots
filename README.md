@@ -1,207 +1,207 @@
 # Crypto Trading Bots
 
-Набор ботов для мониторинга криптовалютных фьючерсов на Binance и Bybit.
+Bots for monitoring crypto futures on Binance and Bybit.
 
-## Что внутри
+## What's inside
 
-- **oi_bot** — мониторинг Open Interest + CVD + Aggregator с TP/SL трекингом
-  - ✨ **НОВОЕ (2026-04-30):** Order Book Analysis, Footprint, Volume Profile
-  - 📚 Полная документация: `oi_bot/INDEX.md`
-- **pump_bot** — детектор резких движений цены (пампы/дампы)
-- **liq_bot** — мониторинг ликвидаций в реальном времени
-- **aggregator_bot** — скоринговая система LONG/SHORT сигналов (старая версия)
+- **oi_bot** — Open Interest + CVD + Aggregator with TP/SL tracking
+  - Order Book Analysis, Footprint, Volume Profile
+  - Full docs: `oi_bot/INDEX.md`
+- **pump_bot** — detects sharp price movements
+- **liq_bot** — liquidation monitoring
+- **aggregator_bot** — LONG/SHORT scoring system (old version)
 
-## Быстрый старт на новом компьютере
+## Quick start
 
-### 1. Скопируйте папку проекта
+### 1. Copy project folder
 
-Просто скопируйте всю папку `crypto_boti` на новый компьютер.
+Copy the entire `crypto_boti` folder to your computer.
 
-### 2. Установите Python
+### 2. Install Python
 
-Нужен Python 3.10 или новее.
+Need Python 3.10 or newer.
 
 **Windows:**
-- Скачайте с https://www.python.org/downloads/
-- При установке поставьте галочку "Add Python to PATH"
+- Download from https://www.python.org/downloads/
+- Check "Add Python to PATH" during install
 
 **Linux/Mac:**
 ```bash
-python3 --version  # проверьте версию
+python3 --version  # check version
 ```
 
-### 3. Установите зависимости
+### 3. Install dependencies
 
-Откройте терминал/командную строку в папке проекта и выполните:
+Open terminal in project folder:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Это установит все нужные библиотеки:
-- aiohttp (HTTP клиент + WebSocket)
-- websockets (WebSocket клиент)
-- python-dotenv (загрузка .env файлов)
+Libraries:
+- aiohttp (HTTP + WebSocket)
+- websockets (WebSocket client)
+- python-dotenv (.env files)
 
-### 4. Настройте .env файлы
+### 4. Setup .env files
 
-Каждый бот использует свой `.env` файл в своей папке.
+Each bot uses its own `.env` file in its folder.
 
-**Для oi_bot** (создайте `oi_bot/.env`):
+**For oi_bot** (create `oi_bot/.env`):
 ```env
-BOT_TOKEN=ваш_telegram_bot_token
-CHAT_ID=ваш_chat_id
+BOT_TOKEN=your_telegram_bot_token
+CHAT_ID=your_chat_id
 
-# Агрегатор (опционально, если хотите отдельный бот для LONG/SHORT)
-AGG_BOT_TOKEN=другой_bot_token
-AGG_CHAT_ID=другой_chat_id
+# Aggregator (optional, if you want separate bot for LONG/SHORT)
+AGG_BOT_TOKEN=another_bot_token
+AGG_CHAT_ID=another_chat_id
 ```
 
-**Для pump_bot** (создайте `pump_bot/.env`):
+**For pump_bot** (create `pump_bot/.env`):
 ```env
-BOT_TOKEN=ваш_telegram_bot_token
-CHAT_ID=ваш_chat_id
+BOT_TOKEN=your_telegram_bot_token
+CHAT_ID=your_chat_id
 ```
 
-**Для liq_bot** (создайте `liq_bot/.env`):
+**For liq_bot** (create `liq_bot/.env`):
 ```env
-BOT_TOKEN=ваш_telegram_bot_token
-CHAT_ID=ваш_chat_id
+BOT_TOKEN=your_telegram_bot_token
+CHAT_ID=your_chat_id
 ```
 
-**Для aggregator_bot** (создайте `aggregator_bot/.env`):
+**For aggregator_bot** (create `aggregator_bot/.env`):
 ```env
-BOT_TOKEN=ваш_telegram_bot_token
-CHAT_ID=ваш_chat_id
+BOT_TOKEN=your_telegram_bot_token
+CHAT_ID=your_chat_id
 ```
 
-#### Как получить BOT_TOKEN:
-1. Напишите @BotFather в Telegram
-2. Отправьте `/newbot`
-3. Следуйте инструкциям
-4. Скопируйте токен
+#### Get BOT_TOKEN:
+1. Message @BotFather in Telegram
+2. Send `/newbot`
+3. Follow instructions
+4. Copy token
 
-#### Как получить CHAT_ID:
-1. Напишите @userinfobot в Telegram
-2. Он пришлёт ваш ID
+#### Get CHAT_ID:
+1. Message @userinfobot in Telegram
+2. It will send your ID
 
-### 5. Запустите боты
+### 5. Run bots
 
-Каждый бот запускается отдельно:
+Each bot runs separately:
 
 ```bash
-# OI Bot (главный, с агрегатором и трекингом сделок)
+# OI Bot (main, with aggregator and trade tracking)
 cd oi_bot
 python main.py
 
-# Pump Bot (резкие движения цены)
+# Pump Bot (sharp price movements)
 cd pump_bot
 python main.py
 
-# Liquidation Bot (ликвидации)
+# Liquidation Bot
 cd liq_bot
 python main.py
 
-# Aggregator Bot (старая версия, опционально)
+# Aggregator Bot (old version, optional)
 cd aggregator_bot
 python main.py
 ```
 
-**Windows:** используйте `python` вместо `python3`
+**Windows:** use `python` instead of `python3`
 
-**Linux/Mac:** используйте `python3`
+**Linux/Mac:** use `python3`
 
-### 6. Остановка ботов
+### 6. Stop bots
 
-Нажмите `Ctrl+C` в терминале где запущен бот.
+Press `Ctrl+C` in terminal where bot is running.
 
-## Рекомендации
+## Recommendations
 
-### Какие боты запускать?
+### Which bots to run?
 
-**Минимальный набор:**
-- `oi_bot` — самый мощный, включает агрегатор и трекинг сделок
+**Minimal:**
+- `oi_bot` — most powerful, includes aggregator and trade tracking
 
-**Полный набор:**
-- `oi_bot` — OI сигналы + агрегатор LONG/SHORT с TP/SL
-- `pump_bot` — быстрые пампы/дампы
-- `liq_bot` — крупные ликвидации
+**Full set:**
+- `oi_bot` — OI signals + LONG/SHORT aggregator with TP/SL
+- `pump_bot` — fast pumps/dumps
+- `liq_bot` — large liquidations
 
-**aggregator_bot** — старая версия, можно не запускать (функционал есть в oi_bot)
+**aggregator_bot** — old version, optional (functionality in oi_bot)
 
-### Запуск в фоне (Linux/Mac)
+### Run in background (Linux/Mac)
 
 ```bash
-# Запуск с логами
+# Run with logs
 cd oi_bot
 nohup python3 main.py > bot.log 2>&1 &
 
-# Просмотр логов
+# View logs
 tail -f bot.log
 
-# Остановка
+# Stop
 pkill -f "python3 main.py"
 ```
 
-### Запуск в фоне (Windows)
+### Run in background (Windows)
 
-Используйте Task Scheduler или запустите в отдельном окне PowerShell.
+Use Task Scheduler or run in separate PowerShell window.
 
-## Настройка порогов
+## Threshold settings
 
-Каждый бот имеет свой `config.py` с настройками:
+Each bot has its own `config.py`:
 
 **oi_bot/config.py:**
-- `OI_THRESHOLD_PCT = 5.0` — минимальный рост OI для сигнала
-- `OI_PERIOD_MIN = 15` — окно расчёта (минуты)
-- `SIGNAL_COOLDOWN = 3600` — кулдаун между сигналами (секунды)
-- `AGG_LONG_MIN_SCORE = 5` — минимум баллов для LONG
-- `AGG_SHORT_MIN_SCORE = 6` — минимум баллов для SHORT
+- `OI_THRESHOLD_PCT = 5.0` — min OI growth for signal
+- `OI_PERIOD_MIN = 15` — calculation window (minutes)
+- `SIGNAL_COOLDOWN = 3600` — cooldown between signals (seconds)
+- `AGG_LONG_MIN_SCORE = 5` — min score for LONG
+- `AGG_SHORT_MIN_SCORE = 6` — min score for SHORT
 
 **pump_bot/config.py:**
-- `LONG_THRESHOLD_PCT = 2.0` — памп для LONG сигнала
-- `SHORT_THRESHOLD_PCT = 10.0` — памп для SHORT сигнала
-- `DUMP_THRESHOLD_PCT = 7.0` — падение для DUMP сигнала
+- `LONG_THRESHOLD_PCT = 2.0` — pump for LONG signal
+- `SHORT_THRESHOLD_PCT = 10.0` — pump for SHORT signal
+- `DUMP_THRESHOLD_PCT = 7.0` — drop for DUMP signal
 
 **liq_bot/config.py:**
-- `LIQ_MIN_USD = 20_000` — минимальная ликвидация в USD
+- `LIQ_MIN_USD = 20_000` — min liquidation in USD
 
-## Структура данных
+## Data structure
 
-Боты сохраняют данные в JSON файлы:
-- `oi_cache.json` — история Open Interest
-- `price_cache.json` — история цен
-- `trades.json` — открытые сделки (oi_bot)
-- `daily_counts.json` — счётчики сигналов за день
+Bots save data to JSON files:
+- `oi_cache.json` — Open Interest history
+- `price_cache.json` — price history
+- `trades.json` — open trades (oi_bot)
+- `daily_counts.json` — daily signal counters
 
-При перезапуске боты загружают данные из кэша (последние 2 часа).
+On restart bots load data from cache (last 2 hours).
 
-## Требования к системе
+## System requirements
 
 - Python 3.10+
-- 100 MB RAM на бот
-- Стабильное интернет-соединение
-- Открытые порты для WebSocket (обычно работает из коробки)
+- 100 MB RAM per bot
+- Stable internet connection
+- Open ports for WebSocket (usually works out of the box)
 
 ## Troubleshooting
 
-**Ошибка "BOT_TOKEN not found":**
-- Проверьте что `.env` файл создан в папке бота
-- Проверьте что токен скопирован правильно (без пробелов)
+**Error "BOT_TOKEN not found":**
+- Check that `.env` file is created in bot folder
+- Check that token is copied correctly (no spaces)
 
-**Бот не отправляет сообщения:**
-- Проверьте CHAT_ID (должен быть числом)
-- Напишите боту `/start` в Telegram
-- Проверьте что токен правильный
+**Bot doesn't send messages:**
+- Check CHAT_ID (must be a number)
+- Message bot `/start` in Telegram
+- Check that token is correct
 
-**WebSocket ошибки:**
-- Проверьте интернет-соединение
-- Бот автоматически переподключится через 5 секунд
+**WebSocket errors:**
+- Check internet connection
+- Bot will auto-reconnect in 5 seconds
 
-**Нет сигналов:**
-- Подождите 2-3 минуты (боты собирают данные)
-- Проверьте пороги в config.py (возможно слишком высокие)
+**No signals:**
+- Wait 2-3 minutes (bots collecting data)
+- Check thresholds in config.py (maybe too high)
 
-## Контакты
+## Contact
 
-Вопросы и предложения: создайте issue в репозитории или напишите в Telegram.
+Questions and suggestions: create issue in repository or message in Telegram.
